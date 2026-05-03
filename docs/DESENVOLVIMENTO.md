@@ -247,7 +247,7 @@ RUST_LOG=info
 PORT=8080
 OLLAMA_BASE_URL=http://127.0.0.1:11434
 OLLAMA_HOST=127.0.0.1:11434
-OLLAMA_MODEL=tinyllama
+OLLAMA_MODEL=deepseek-r1:8b
 ```
 
 ### Frontend

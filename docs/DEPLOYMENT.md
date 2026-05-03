@@ -18,7 +18,7 @@ docker compose build
 docker compose up
 ```
 
-Observação: na primeira execução, o backend baixa automaticamente o modelo gratuito `tinyllama`.
+Observação: na primeira execução, o backend baixa automaticamente o modelo gratuito `deepseek-r1:8b`.
 
 Backend estará disponível em `http://localhost:8080`
 Frontend estará disponível em `http://localhost:3000`
@@ -114,7 +114,7 @@ PORT=8080
 ALLOWED_ORIGINS=http://localhost:3000
 OLLAMA_BASE_URL=http://127.0.0.1:11434
 OLLAMA_HOST=127.0.0.1:11434
-OLLAMA_MODEL=tinyllama
+OLLAMA_MODEL=deepseek-r1:8b
 ```
 
 ### Frontend (.env)

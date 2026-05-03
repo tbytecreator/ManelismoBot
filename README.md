@@ -9,7 +9,7 @@ Chatbot que simula a personalidade e pensamento de **Manoel Alves Ferreira Neto*
 - 🚀 Frontend moderno em React 18
 - 🐳 Totalmente containerizado com Docker
 - 📚 Documentação completa
-- 🧠 Respostas por IA com LLM local (Ollama + tinyllama)
+- 🧠 Respostas por IA com LLM local (Ollama + deepseek-r1:8b)
 - 💬 Chat interativo em tempo real
 
 ## 📋 Pré-requisitos
@@ -50,7 +50,7 @@ Acesse:
 - Backend API: <http://localhost:8080>
 - Health check: <http://localhost:8080/api/health>
 
-Observação: na primeira execução, o backend baixa automaticamente o modelo gratuito `tinyllama`, então o primeiro start pode levar alguns minutos.
+Observação: na primeira execução, o backend baixa automaticamente o modelo gratuito `deepseek-r1:8b`, então o primeiro start pode levar alguns minutos.
 
 ### Opção 2: Docker Build Manual
 
@@ -246,7 +246,7 @@ RUST_LOG=info
 PORT=8080
 OLLAMA_BASE_URL=http://127.0.0.1:11434
 OLLAMA_HOST=127.0.0.1:11434
-OLLAMA_MODEL=tinyllama
+OLLAMA_MODEL=deepseek-r1:8b
 ```
 
 ### Frontend

@@ -4,7 +4,7 @@
 
 O Bot do Manelismo é um sistema de chatbot que simula a personalidade e o pensamento de Manoel Alves Ferreira Neto (TByteCreator). O sistema segue uma arquitetura de microserviços containerizada com separação clara entre backend e frontend.
 
-Na versão atual, a geração de respostas usa um LLM local gratuito (`tinyllama`) executado via Ollama dentro do container do backend.
+Na versão atual, a geração de respostas usa um LLM local gratuito (`deepseek-r1:8b`) executado via Ollama dentro do container do backend.
 
 ## Diagrama de Arquitetura
 
@@ -107,7 +107,7 @@ src/
    ↓
 3. Backend recebe requisição no handler ask.rs
    ↓
-4. ManelismoBot envia prompt para Ollama local (modelo `tinyllama`)
+4. ManelismoBot envia prompt para Ollama local (modelo `deepseek-r1:8b`)
    ↓
 5. Backend retorna response JSON ao frontend
    {

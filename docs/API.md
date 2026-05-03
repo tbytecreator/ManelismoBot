@@ -10,7 +10,7 @@ http://localhost:8080
 
 ### 1. Ask Question
 
-Processa uma pergunta e retorna a resposta do bot, gerada por um LLM local (`tinyllama`) via Ollama.
+Processa uma pergunta e retorna a resposta do bot, gerada por um LLM local (`deepseek-r1:8b`) via Ollama.
 
 **Endpoint:** `POST /api/ask`
 
@@ -45,7 +45,7 @@ Content-Type: application/json
 
 **Comportamento:**
 - O backend envia a pergunta para o Ollama local (`POST /api/generate`)
-- O modelo padrão é `tinyllama`
+- O modelo padrão é `deepseek-r1:8b`
 - Se o modelo ainda estiver inicializando, o backend retorna uma mensagem de fallback
 
 ### 2. Health Check
@@ -103,7 +103,7 @@ Variáveis de ambiente do backend:
 ```bash
 OLLAMA_BASE_URL=http://127.0.0.1:11434
 OLLAMA_HOST=127.0.0.1:11434
-OLLAMA_MODEL=tinyllama
+OLLAMA_MODEL=deepseek-r1:8b
 ```
 
 ## Autenticação
@@ -162,7 +162,7 @@ console.log(data.status); // "ok"
 ## Roadmap
 
 - [ ] Integração com LLM para respostas mais sofisticadas
-- [x] Integração com LLM local via Ollama (`tinyllama`)
+- [x] Integração com LLM local via Ollama (`deepseek-r1:8b`)
 - [ ] Base de dados para histórico de conversas
 - [ ] Autenticação com API keys
 - [ ] Rate limiting por usuário
