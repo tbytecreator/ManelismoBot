@@ -4,12 +4,13 @@ import ChatMessage from './components/ChatMessage';
 import ChatInput from './components/ChatInput';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+const BANNER_URL = process.env.REACT_APP_BANNER_URL || '/banner-tbytecreator.png';
 
 function App() {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Olá! Sou o Bot do Manelismo. Sou uma representação da personalidade e pensamento de Manoel Alves Ferreira Neto. Faça-me uma pergunta sobre qualquer questão importante da humanidade!",
+      text: "Chega mais. Manda a pergunta sem rodeio e eu respondo no estilo Manoel Neto: direto, crítico e sem verniz corporativo.",
       sender: 'bot',
       timestamp: new Date(),
     },
@@ -78,8 +79,20 @@ function App() {
     <div className="App">
       <div className="container">
         <header className="chat-header">
-          <h1>🤖 Bot do Manelismo</h1>
-          <p className="subtitle">Converse com o pensamento de Manoel Alves Ferreira Neto</p>
+          <div className="banner-shell">
+            <div
+              className="banner-image"
+              style={{ backgroundImage: `url(${BANNER_URL})` }}
+              role="img"
+              aria-label="Banner TByteCreator"
+            />
+            <div className="banner-overlay" />
+            <div className="banner-content">
+              <p className="eyebrow">TBYTECREATOR</p>
+              <h1>Bot do Manelismo</h1>
+              <p className="subtitle">Visão crua sobre tecnologia, sociedade e cultura</p>
+            </div>
+          </div>
         </header>
 
         <div className="chat-messages">

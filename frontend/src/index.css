@@ -1,11 +1,21 @@
+:root {
+  --bg-base: #07090f;
+  --bg-elevated: #121722;
+  --text-primary: #e9f4ff;
+  --text-secondary: #b8c9de;
+  --accent-orange: #ff4e1f;
+  --accent-cyan: #52e2ff;
+  --font-display: 'Bebas Neue', 'Oswald', 'Franklin Gothic Medium', sans-serif;
+  --font-body: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--bg-base) 0%, var(--bg-elevated) 100%);
   min-height: 100vh;
 }
 

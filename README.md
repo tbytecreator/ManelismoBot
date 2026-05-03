@@ -93,10 +93,7 @@ cd backend
 
 # Build
 cargo build
-
-# Executar (modo desenvolvimento)
-cargo run
-
+- **[PERSONALIDADE.md](docs/PERSONALIDADE.md)** - Calibração de voz/persona do Manoel Neto
 # Com logs detalhados
 RUST_LOG=debug cargo run
 
@@ -125,6 +122,7 @@ npm test
 ```
 
 Frontend estará em: <http://localhost:3000>
+│   └── PERSONALIDADE.md
 
 ## 📚 Documentação
 

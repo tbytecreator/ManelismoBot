@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420" role="img" aria-labelledby="title desc">
+  <title id="title">Banner TByteCreator Fallback</title>
+  <desc id="desc">Fallback visual banner for Bot do Manelismo interface</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#091018"/>
+      <stop offset="52%" stop-color="#151f2d"/>
+      <stop offset="100%" stop-color="#08121a"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="78%" cy="12%" r="42%">
+      <stop offset="0%" stop-color="#52e2ff" stop-opacity="0.36"/>
+      <stop offset="100%" stop-color="#52e2ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="18%" cy="20%" r="38%">
+      <stop offset="0%" stop-color="#ff4e1f" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#ff4e1f" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M 36 0 L 0 0 0 36" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="420" fill="url(#bg)"/>
+  <rect width="1600" height="420" fill="url(#grid)"/>
+  <rect width="1600" height="420" fill="url(#glowA)"/>
+  <rect width="1600" height="420" fill="url(#glowB)"/>
+
+  <g opacity="0.9">
+    <path d="M0 325 C220 240 420 310 640 252 C830 202 1140 294 1600 232 L1600 420 L0 420 Z" fill="#0d1622"/>
+    <path d="M0 350 C310 282 500 340 760 292 C1010 246 1280 318 1600 262" fill="none" stroke="#52e2ff" stroke-opacity="0.35" stroke-width="2"/>
+    <path d="M0 295 C300 238 520 286 780 238 C980 200 1260 248 1600 190" fill="none" stroke="#ff4e1f" stroke-opacity="0.4" stroke-width="2"/>
+  </g>
+
+  <g transform="translate(96,118)">
+    <text x="0" y="0" fill="#52e2ff" font-size="30" font-family="'Bebas Neue', 'Oswald', sans-serif" letter-spacing="7">
+      TBYTECREATOR
+    </text>
+    <text x="0" y="78" fill="#f5fbff" font-size="78" font-family="'Bebas Neue', 'Oswald', sans-serif" letter-spacing="2">
+      BOT DO MANELISMO
+    </text>
+    <text x="2" y="122" fill="#d9ecff" font-size="28" font-family="'IBM Plex Sans', 'Segoe UI', sans-serif">
+      pensamento direto, crítico e sem filtro cosmético
+    </text>
+  </g>
+</svg>

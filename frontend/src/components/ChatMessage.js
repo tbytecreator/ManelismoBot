@@ -8,9 +8,10 @@ function ChatMessage({ message }) {
   return (
     <div className={`chat-message ${isBot ? 'bot' : 'user'} ${isError ? 'error' : ''}`}>
       <div className="message-avatar">
-        {isBot ? '🤖' : '👤'}
+        <span>{isBot ? 'MN' : 'VOC'}</span>
       </div>
       <div className="message-content">
+        <div className="message-author">{isBot ? 'MANOEL NETO' : 'VOCÊ'}</div>
         <div className="message-text">{message.text}</div>
         {message.confidence && (
           <div className="message-confidence">
