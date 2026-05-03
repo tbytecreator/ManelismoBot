@@ -1,0 +1,39 @@
+# Rust
+/backend/target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# Node
+/frontend/node_modules/
+/frontend/build/
+/frontend/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.env.local
+.env.*.local
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Build
+.dist/
+*.tar.gz
+
+# Logs
+*.log
+logs/
+
+# Cache
+.cache/
+*.tmp

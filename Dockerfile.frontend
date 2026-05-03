@@ -1,0 +1,26 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copiar package files
+COPY frontend/package.json ./
+COPY frontend/package-lock.json* ./
+
+# Instalar dependências
+RUN npm ci
+
+# Copiar código fonte
+COPY frontend/src ./src
+COPY frontend/public ./public
+
+# Build da aplicação
+RUN npm run build
+
+# Instalar serve para servir o frontend
+RUN npm install -g serve
+
+# Expor porta
+EXPOSE 3000
+
+# Servir a aplicação
+CMD ["serve", "-s", "build", "-l", "3000"]
