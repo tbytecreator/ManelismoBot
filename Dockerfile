@@ -1,5 +1,5 @@
 # Build stage para backend
-FROM rust:1.75 as backend_builder
+FROM rust:1.88 as backend_builder
 
 WORKDIR /app/backend
 

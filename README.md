@@ -38,6 +38,9 @@ docker-compose up --build
 
 # Ou em background
 docker-compose up -d --build
+
+# Linux 
+docker compose up -d --build
 ```
 
 Acesse:
