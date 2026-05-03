@@ -31,7 +31,7 @@ Chatbot que simula a personalidade e pensamento de **Manoel Alves Ferreira Neto*
 
 ```bash
 # Clone ou navigate para a pasta do projeto
-cd ManelismoBot
+cd ManelismoBot/ManelismoBot
 
 # Build e inicie os containers
 docker-compose up --build
@@ -196,7 +196,7 @@ console.log(data.answer);
 ## 🏗️ Estrutura do Projeto
 
 ```ascii
-ManelismoBot/
+ManelismoBot/ManelismoBot/
 ├── backend/                    # Backend Rust + Actix-web
 │   ├── Cargo.toml
 │   ├── src/

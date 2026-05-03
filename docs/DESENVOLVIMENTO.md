@@ -2,6 +2,8 @@
 
 ## Setup Local
 
+> Caminho da raiz do projeto (relativo): `./`
+
 ### Pré-requisitos
 
 - Rust 1.75+ ([instalar](https://rustup.rs/))
@@ -50,7 +52,7 @@ Frontend estará disponível em `http://localhost:3000`
 ## Estrutura de Projeto
 
 ```
-ManelismoBot/
+ManelismoBot/ManelismoBot/
 ├── backend/                 # Backend em Rust
 │   ├── Cargo.toml
 │   ├── src/
