@@ -6,8 +6,8 @@ WORKDIR /app
 COPY frontend/package.json ./
 COPY frontend/package-lock.json* ./
 
-# Instalar dependências
-RUN npm ci
+# Instalar dependências (usa npm ci quando houver lockfile)
+RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
 # Copiar código fonte
 COPY frontend/src ./src

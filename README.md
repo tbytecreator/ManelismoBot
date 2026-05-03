@@ -21,7 +21,7 @@ Chatbot que simula a personalidade e pensamento de **Manoel Alves Ferreira Neto*
 
 ### Para desenvolvimento local
 
-- Rust 1.75+ ([instalar](https://rustup.rs/))
+- Rust 1.88+ ([instalar](https://rustup.rs/))
 - Node.js 18+ e npm 9+ ([instalar](https://nodejs.org/))
 - Git
 
@@ -30,16 +30,13 @@ Chatbot que simula a personalidade e pensamento de **Manoel Alves Ferreira Neto*
 ### Opção 1: Docker Compose (Mais Fácil)
 
 ```bash
-# Clone ou navigate para a pasta do projeto
-cd ManelismoBot/ManelismoBot
+# Clone ou navegue para a pasta do projeto
+cd ManelismoBot
 
 # Build e inicie os containers
-docker-compose up --build
+docker compose up --build
 
 # Ou em background
-docker-compose up -d --build
-
-# Linux 
 docker compose up -d --build
 ```
 
@@ -73,8 +70,8 @@ docker run -p 3000:3000 manelismo-bot-frontend:latest
 ### Parar Containers
 
 ```bash
-# Com docker-compose
-docker-compose down
+# Com docker compose
+docker compose down
 
 # Com docker run
 docker stop container-id
@@ -199,7 +196,7 @@ console.log(data.answer);
 ## 🏗️ Estrutura do Projeto
 
 ```ascii
-ManelismoBot/ManelismoBot/
+ManelismoBot/
 ├── backend/                    # Backend Rust + Actix-web
 │   ├── Cargo.toml
 │   ├── src/
