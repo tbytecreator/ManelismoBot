@@ -8,7 +8,6 @@ mod models;
 mod manelismo_bot;
 
 use handlers::ask;
-use models::QuestionRequest;
 
 #[derive(Serialize, Deserialize)]
 pub struct AppState {

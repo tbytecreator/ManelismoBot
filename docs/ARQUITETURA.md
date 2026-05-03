@@ -4,6 +4,8 @@
 
 O Bot do Manelismo é um sistema de chatbot que simula a personalidade e o pensamento de Manoel Alves Ferreira Neto (TByteCreator). O sistema segue uma arquitetura de microserviços containerizada com separação clara entre backend e frontend.
 
+Na versão atual, a geração de respostas usa um LLM local gratuito (`tinyllama`) executado via Ollama dentro do container do backend.
+
 ## Diagrama de Arquitetura
 
 ```
@@ -34,7 +36,7 @@ O Bot do Manelismo é um sistema de chatbot que simula a personalidade e o pensa
 
 **Responsabilidades:**
 - Processar requisições HTTP POST em `/api/ask`
-- Executar lógica de geração de respostas através do módulo `ManelismoBot`
+- Executar geração de respostas por IA via Ollama (`/api/generate`) no próprio container
 - Servir health checks em `/api/health`
 - Gerenciar CORS para comunicação com o frontend
 
@@ -105,7 +107,7 @@ src/
    ↓
 3. Backend recebe requisição no handler ask.rs
    ↓
-4. ManelismoBot gera resposta baseada na pergunta
+4. ManelismoBot envia prompt para Ollama local (modelo `tinyllama`)
    ↓
 5. Backend retorna response JSON ao frontend
    {
@@ -162,14 +164,14 @@ O módulo `manelismo_bot.rs` contém a lógica central:
 - Resposta padrão para perguntas não categorizadas
 
 **Lógica de Resposta:**
-- Identifica palavras-chave na pergunta (who, sense, technology, future, youtube)
-- Retorna respostas específicas para cada contexto
-- Mantém personalidade consistente com Manoel Alves Ferreira Neto
+- Envia prompt com system prompt de persona para o modelo local
+- Recebe resposta gerada por IA via endpoint Ollama
+- Em caso de indisponibilidade temporária do modelo, usa fallback informativo
 
 ## Escalabilidade e Futuros Melhoramentos
 
 ### Curto Prazo:
-1. Integração com LLMs (OpenAI, Hugging Face)
+1. Melhorar qualidade com modelos maiores opcionais (ex.: `qwen2.5:3b`)
 2. Base de dados para armazenar histórico de conversas
 3. Cache de respostas frequentes
 4. Autenticação e rate limiting

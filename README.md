@@ -9,7 +9,7 @@ Chatbot que simula a personalidade e pensamento de **Manoel Alves Ferreira Neto*
 - 🚀 Frontend moderno em React 18
 - 🐳 Totalmente containerizado com Docker
 - 📚 Documentação completa
-- 🔄 Sistema de geração de respostas contextual
+- 🧠 Respostas por IA com LLM local (Ollama + tinyllama)
 - 💬 Chat interativo em tempo real
 
 ## 📋 Pré-requisitos
@@ -18,6 +18,7 @@ Chatbot que simula a personalidade e pensamento de **Manoel Alves Ferreira Neto*
 
 - Docker 20.10+
 - Docker Compose 2.0+
+- Conexão com internet no primeiro start (download inicial do modelo)
 
 ### Para desenvolvimento local
 
@@ -38,6 +39,9 @@ docker compose up --build
 
 # Ou em background
 docker compose up -d --build
+
+# Ver logs do backend (inclui download inicial do modelo na primeira execução)
+docker compose logs -f backend
 ```
 
 Acesse:
@@ -45,6 +49,8 @@ Acesse:
 - Frontend: <http://localhost:3000>
 - Backend API: <http://localhost:8080>
 - Health check: <http://localhost:8080/api/health>
+
+Observação: na primeira execução, o backend baixa automaticamente o modelo gratuito `tinyllama`, então o primeiro start pode levar alguns minutos.
 
 ### Opção 2: Docker Build Manual
 
@@ -148,7 +154,7 @@ Faz uma pergunta ao bot.
 ```json
 {
   "answer": "Essa é uma das questões mais importantes...",
-  "confidence": 0.85,
+  "confidence": 0.88,
   "source": "ManelismoBot v0.1"
 }
 ```
@@ -238,6 +244,9 @@ Criar arquivo `backend/.env`:
 ```ascii
 RUST_LOG=info
 PORT=8080
+OLLAMA_BASE_URL=http://127.0.0.1:11434
+OLLAMA_HOST=127.0.0.1:11434
+OLLAMA_MODEL=tinyllama
 ```
 
 ### Frontend

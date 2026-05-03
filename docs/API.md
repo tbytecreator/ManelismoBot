@@ -10,7 +10,7 @@ http://localhost:8080
 
 ### 1. Ask Question
 
-Processa uma pergunta e retorna a resposta do bot.
+Processa uma pergunta e retorna a resposta do bot, gerada por um LLM local (`tinyllama`) via Ollama.
 
 **Endpoint:** `POST /api/ask`
 
@@ -29,8 +29,8 @@ Content-Type: application/json
 **Response (200 OK):**
 ```json
 {
-  "answer": "Essa é uma das questões mais importantes da humanidade...",
-  "confidence": 0.85,
+  "answer": "Resposta gerada pelo modelo local com base na pergunta...",
+  "confidence": 0.88,
   "source": "ManelismoBot v0.1"
 }
 ```
@@ -43,12 +43,10 @@ Content-Type: application/json
 }
 ```
 
-**Exemplos de Palavras-Chave:**
-- "quem você é?" → Resposta sobre identidade
-- "qual sentido" → Resposta sobre propósito
-- "tecnologia" → Resposta sobre tech e sociedade
-- "futuro" → Resposta sobre perspectivas futuras
-- "youtube/criação" → Resposta sobre criação de conteúdo
+**Comportamento:**
+- O backend envia a pergunta para o Ollama local (`POST /api/generate`)
+- O modelo padrão é `tinyllama`
+- Se o modelo ainda estiver inicializando, o backend retorna uma mensagem de fallback
 
 ### 2. Health Check
 
@@ -96,6 +94,16 @@ Todas as requisições são registradas em log com timestamp:
 ```
 [INFO] Received question: Qual é o sentido da vida?
 [INFO] Generated response for question
+```
+
+## Configuração do LLM local
+
+Variáveis de ambiente do backend:
+
+```bash
+OLLAMA_BASE_URL=http://127.0.0.1:11434
+OLLAMA_HOST=127.0.0.1:11434
+OLLAMA_MODEL=tinyllama
 ```
 
 ## Autenticação
@@ -154,6 +162,7 @@ console.log(data.status); // "ok"
 ## Roadmap
 
 - [ ] Integração com LLM para respostas mais sofisticadas
+- [x] Integração com LLM local via Ollama (`tinyllama`)
 - [ ] Base de dados para histórico de conversas
 - [ ] Autenticação com API keys
 - [ ] Rate limiting por usuário

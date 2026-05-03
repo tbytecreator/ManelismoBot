@@ -6,7 +6,7 @@
 
 ### Pré-requisitos
 
-- Rust 1.75+ ([instalar](https://rustup.rs/))
+- Rust 1.88+ ([instalar](https://rustup.rs/))
 - Node.js 18+ ([instalar](https://nodejs.org/))
 - npm 9+
 - Docker Desktop (opcional, para containerização)
@@ -52,7 +52,7 @@ Frontend estará disponível em `http://localhost:3000`
 ## Estrutura de Projeto
 
 ```
-ManelismoBot/ManelismoBot/
+ManelismoBot/
 ├── backend/                 # Backend em Rust
 │   ├── Cargo.toml
 │   ├── src/
@@ -245,6 +245,9 @@ Criar `.env` na pasta `backend/`:
 ```
 RUST_LOG=info
 PORT=8080
+OLLAMA_BASE_URL=http://127.0.0.1:11434
+OLLAMA_HOST=127.0.0.1:11434
+OLLAMA_MODEL=tinyllama
 ```
 
 ### Frontend

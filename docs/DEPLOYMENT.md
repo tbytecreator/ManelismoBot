@@ -14,9 +14,11 @@
 
 ```bash
 # Na raiz do projeto
-docker-compose build
-docker-compose up
+docker compose build
+docker compose up
 ```
+
+Observação: na primeira execução, o backend baixa automaticamente o modelo gratuito `tinyllama`.
 
 Backend estará disponível em `http://localhost:8080`
 Frontend estará disponível em `http://localhost:3000`
@@ -35,18 +37,16 @@ docker build -f Dockerfile.frontend -t manelismo-bot-frontend:latest .
 docker run -p 3000:3000 manelismo-bot-frontend:latest
 ```
 
-#### 3. Build Multi-stage (Produção)
+#### 3. Build Multi-stage (Legado)
 
-```bash
-docker build -f Dockerfile -t manelismo-bot:latest .
-docker run -p 8080:8080 -p 3000:3000 manelismo-bot:latest
-```
+O `Dockerfile` raiz é legado e não sobe o LLM local automaticamente.
+Para esta versão com IA local, use `Dockerfile.backend` + `Dockerfile.frontend` (ou `docker compose`).
 
 ### Parar Containers
 
 ```bash
-# Se usando docker-compose
-docker-compose down
+# Se usando docker compose
+docker compose down
 
 # Se usando docker run
 docker stop container-id
@@ -56,7 +56,7 @@ docker rm container-id
 ### Verificar Status
 
 ```bash
-docker-compose ps
+docker compose ps
 docker logs container-name
 docker stats
 ```
@@ -112,6 +112,9 @@ az container create \
 RUST_LOG=info
 PORT=8080
 ALLOWED_ORIGINS=http://localhost:3000
+OLLAMA_BASE_URL=http://127.0.0.1:11434
+OLLAMA_HOST=127.0.0.1:11434
+OLLAMA_MODEL=tinyllama
 ```
 
 ### Frontend (.env)
@@ -127,7 +130,7 @@ REACT_APP_API_URL=http://backend:8080
 O `docker-compose.yml` inclui health checks:
 
 ```bash
-docker-compose ps
+docker compose ps
 # Verificar status (healthy/starting/unhealthy)
 ```
 
@@ -305,7 +308,7 @@ docker push manelismo-bot:v1.0.0
 ### Rollback
 
 ```bash
-docker-compose down
+docker compose down
 docker pull manelismo-bot:v0.9.9
-docker-compose up
+docker compose up
 ```

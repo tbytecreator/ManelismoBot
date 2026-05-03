@@ -9,6 +9,11 @@ services:
       - "8080:8080"
     environment:
       - RUST_LOG=info
+      - OLLAMA_BASE_URL=http://127.0.0.1:11434
+      - OLLAMA_HOST=127.0.0.1:11434
+      - OLLAMA_MODEL=tinyllama
+    volumes:
+      - ollama-data:/root/.ollama
     networks:
       - manelismo-network
     healthcheck:
@@ -35,3 +40,6 @@ services:
 networks:
   manelismo-network:
     driver: bridge
+
+volumes:
+  ollama-data:
