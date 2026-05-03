@@ -3,6 +3,8 @@ import './App.css';
 import ChatMessage from './components/ChatMessage';
 import ChatInput from './components/ChatInput';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
 function App() {
   const [messages, setMessages] = useState([
     {
@@ -35,7 +37,7 @@ function App() {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/ask', {
+      const response = await fetch(`${API_BASE_URL}/api/ask`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

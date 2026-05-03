@@ -22,6 +22,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
+      args:
+        REACT_APP_API_URL: http://localhost:8080
     container_name: manelismo-bot-frontend
     ports:
       - "3000:3000"
@@ -29,8 +31,6 @@ services:
       - backend
     networks:
       - manelismo-network
-    environment:
-      - REACT_APP_API_URL=http://backend:8080
 
 networks:
   manelismo-network:
