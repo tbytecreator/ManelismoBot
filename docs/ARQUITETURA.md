@@ -10,17 +10,17 @@ Na versão atual, a geração de respostas usa um LLM local gratuito (`deepseek-
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Docker Container                          │
-│                                                               │
+│                    Docker Container                         │
+│                                                             │
 │  ┌─────────────────┐         ┌──────────────────┐           │
 │  │   Frontend      │         │   Backend        │           │
 │  │   (React)       │◄────────┤   (Rust/Actix)   │           │
 │  │   Port 3000     │   HTTP  │   Port 8080      │           │
 │  └─────────────────┘         └──────────────────┘           │
-│         │                            │                       │
-│         │ Serve Static Files         │ Process Questions     │
-│         │ User Interface             │ Generate Responses    │
-│         │                            │                       │
+│         │                            │                      │
+│         │ Serve Static Files         │ Process Questions    │
+│         │ User Interface             │ Generate Responses   │
+│         │                            │                      │
 └─────────────────────────────────────────────────────────────┘
          │                            │
          └────────────────┬───────────┘
