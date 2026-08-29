@@ -2,12 +2,13 @@
 set -e
 
 OLLAMA_HOST_VALUE="${OLLAMA_HOST:-127.0.0.1:11434}"
-MODEL_NAME="${OLLAMA_MODEL:-deepseek-r1:8b}"
+MODEL_NAME="${OLLAMA_MODEL:-tinyllama:1.1b}"
 OLLAMA_LOG_FILE="/tmp/ollama.log"
 OLLAMA_PULL_LOG_FILE="/tmp/ollama-pull.log"
 
 export OLLAMA_HOST="$OLLAMA_HOST_VALUE"
 export OLLAMA_BASE_URL="${OLLAMA_BASE_URL:-http://$OLLAMA_HOST}"
+export OLLAMA_MODEL="$MODEL_NAME"
 
 echo "[startup] Iniciando Ollama em $OLLAMA_HOST..."
 if ! command -v ollama >/dev/null 2>&1; then

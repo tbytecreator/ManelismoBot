@@ -30,7 +30,7 @@ struct OllamaGenerateResponse {
 impl ManelismoBot {
     pub fn new() -> Self {
         let base_url = env::var("OLLAMA_BASE_URL").unwrap_or_else(|_| "http://127.0.0.1:11434".to_string());
-        let model = env::var("OLLAMA_MODEL").unwrap_or_else(|_| "deepseek-r1:8b".to_string());
+        let model = env::var("OLLAMA_MODEL").unwrap_or_else(|_| "tinyllama:1.1b".to_string());
 
         ManelismoBot {
             client: Client::builder()
