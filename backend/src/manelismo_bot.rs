@@ -61,21 +61,27 @@ impl ManelismoBot {
 
         match self.generate_with_ollama(&prompt).await {
             Ok(answer) if !answer.trim().is_empty() => {
-                let mut final_answer = answer.trim().to_string();
+                let mut final_answer = sanitize_model_output(&answer);
                 let mut confidence = 0.9;
 
-                if looks_generic_or_out_of_persona(&final_answer) {
+                if final_answer.is_empty() || looks_generic_or_out_of_persona(&final_answer) {
                     if let Ok(rewritten) = self
                         .rewrite_in_manoel_voice(trimmed_question, &final_answer)
                         .await
                     {
-                        if !rewritten.trim().is_empty() {
-                            final_answer = rewritten.trim().to_string();
+                        let cleaned_rewrite = sanitize_model_output(&rewritten);
+                        if !cleaned_rewrite.is_empty() {
+                            final_answer = cleaned_rewrite;
                             confidence = 0.86;
                         }
                     } else {
                         confidence = 0.74;
                     }
+                }
+
+                if final_answer.is_empty() {
+                    final_answer = fallback_response(trimmed_question);
+                    confidence = 0.55;
                 }
 
                 GeneratedAnswer {
@@ -150,6 +156,91 @@ fn fallback_response(question: &str) -> String {
          Tente novamente em alguns segundos.",
         question.trim()
     )
+}
+
+fn sanitize_model_output(raw: &str) -> String {
+    let mut text = raw.trim().to_string();
+
+    let remove_prefixes = [
+        "Resposta obrigatória do usuário:",
+        "Resposta obrigatoria do usuario:",
+        "Resposta obrigatória:",
+        "Resposta obrigatoria:",
+        "Resposta final:",
+    ];
+
+    for prefix in remove_prefixes {
+        if text.to_lowercase().starts_with(&prefix.to_lowercase()) {
+            text = text[prefix.len()..].trim_start().to_string();
+            break;
+        }
+    }
+
+    let leak_markers = [
+        "Formato obrigatório da resposta",
+        "Formato obrigatorio da resposta",
+        "Sem listas numeradas",
+        "sem bullet points",
+        "prefácio metalinguístico",
+        "prefacio metalinguistico",
+        "Se a pergunta pedir código",
+        "Se a pergunta pedir codigo",
+        "Em caso contrário, deixe a resposta",
+        "Em caso contrario, deixe a resposta",
+    ];
+
+    for marker in leak_markers {
+        if let Some(idx) = text.find(marker) {
+            text = text[..idx].trim_end().to_string();
+            break;
+        }
+    }
+
+    let instruction_hints = [
+        "responda como",
+        "comece com",
+        "traga ao menos",
+        "feche com",
+        "use express",
+        "sem listas numeradas",
+        "sem bullet",
+        "prefácio metalingu",
+        "prefacio metalingu",
+        "formato obrigatório",
+        "formato obrigatorio",
+        "se a pergunta pedir código",
+        "se a pergunta pedir codigo",
+        "resposta técnica:",
+    ];
+
+    let mut kept_parts: Vec<String> = Vec::new();
+    for part in text.split("\n\n") {
+        let trimmed = part.trim();
+        if trimmed.is_empty() {
+            continue;
+        }
+
+        let lowered = trimmed.to_lowercase();
+        let is_bullet_instruction = lowered.starts_with("- ")
+            && (lowered.contains("use ")
+                || lowered.contains("evite")
+                || lowered.contains("utilize")
+                || lowered.contains("nunca"));
+        let hint_count = instruction_hints
+            .iter()
+            .filter(|hint| lowered.contains(**hint))
+            .count();
+
+        if is_bullet_instruction || hint_count >= 2 {
+            continue;
+        }
+
+        kept_parts.push(trimmed.to_string());
+    }
+
+    text = kept_parts.join("\n\n");
+
+    text.replace("\n\n\n", "\n\n").trim().to_string()
 }
 
 fn build_manoel_system_prompt() -> String {
@@ -317,5 +408,24 @@ mod tests {
     fn test_question_context_for_learning() {
         let context = response_context_for_question("Quero aprender a programar, por onde começo?");
         assert!(context.contains("Fundamentos primeiro"));
+    }
+
+    #[test]
+    fn test_sanitize_model_output_removes_contract_leak() {
+        let leaked = "Resposta obrigatória do usuário: Boa noite, mermão. A vida é pancada e aprendizado. Se a pergunta pedir código, inclua um bloco de código funcional logo após o texto.";
+        let cleaned = sanitize_model_output(leaked);
+        assert!(!cleaned.to_lowercase().contains("resposta obrigatória do usuário"));
+        assert!(!cleaned.to_lowercase().contains("se a pergunta pedir código"));
+        assert!(cleaned.contains("Boa noite"));
+    }
+
+    #[test]
+    fn test_sanitize_model_output_drops_instruction_paragraph() {
+        let leaked = "A vida cobra, mermão, mas também ensina.
+
+Responda como um carioca que valoriza pensamento crítico. Comece com uma tese curta e assertiva. Traga ao menos uma justificativa concreta.";
+        let cleaned = sanitize_model_output(leaked);
+        assert!(cleaned.contains("A vida cobra"));
+        assert!(!cleaned.to_lowercase().contains("responda como um carioca"));
     }
 }
